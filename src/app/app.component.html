@@ -1,0 +1,60 @@
+<h1>MEAN CRUD</h1>
+
+<form>
+    <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" [(ngModel)]="name" class="form-control" name="name" placeholder="Añadir nombre...">
+    </div>
+
+    <div class="form-group">
+        <label>Ciudad</label>
+        <input type="text" [(ngModel)]="city" class="form-control" name="city" placeholder="Añadir ciudad...">
+    </div>
+
+    <button class="btn btn-primary" (click)="addUser($event)" onClick="javascript:location.reload();">Añadir usuarior</button>
+</form>
+
+<div class="card">
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Ciudad</th>
+                </tr>  
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users"
+                    (click)="selectUser(user)"
+                    [class.active]="user===activeUser">
+                    <td>{{user.name}}</td>
+                    <td>{{user.city}}</td>
+                    <td>
+                        <!--<button class="btn btn-primary" (click) ="updateUser(user)" value="Update" >Update</button>-->
+                        <button class="btn btn-danger" (click)="deleteUser(user._id)" onClick="javascript:location.reload();" value="Delete">Borrar</button>
+                    </td>
+                </tr>
+                <div class="col-sm-8">
+                    <div class="jumbotron" *ngIf="activeUser" >
+                      <h2>{{activeUser.name}} {{activeUser.city}} </h2>
+                       <form>
+                        <div class="form-group">
+                          <label for="name">Nombre</label>
+                          <input type="text" name="name" class="form-control" id="name" [(ngModel)]="activeUser.name" />
+                        </div>
+                        <div class="form-group">
+                          <label for="username">Ciudad</label>
+                          <input type="text" name="city" class="form-control" id="username" [(ngModel)]="activeUser.city" />
+                        </div>
+                        <hr>
+                        <button class="btn btn-primary" (click) ="updateUser(activeUser)" onClick="javascript:location.reload();" value="Update">
+                          Guardar Cambios
+                          <span class="fa fa-check ml-2"></span>
+                        </button>
+                      </form>
+                    </div>
+                </div>
+            </tbody>
+        </table>
+    </div>
+</div>
